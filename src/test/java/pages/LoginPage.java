@@ -3,29 +3,48 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+import static org.bouncycastle.cms.RecipientId.password;
 
 public class LoginPage extends BasePage {
 
-    public static final By USER_INFO_INPUT = By.id("username");
-    public static final By PASSWORD_INFO_INPUT = By.id("password");
-    public static final By LOGIN_BUTTON = By.id("Login");
+    public static final By ERROR_MESSAGE = By.id("error");
+    @FindBy(id = "username")
+    WebElement userInput;
+    @FindBy(id = "password")
+    WebElement passwordInput;
+    @FindBy(id = "Login")
+    WebElement loginButton;
 
     public LoginPage(WebDriver driver) {
         super(driver);
     }
 
     @Step("Открытие страницы регистрации")
-    public void openLoginPage() {
+    public void openPage() {
         driver.get(baseURL);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Login")));
+        PageFactory.initElements(driver, this);
     }
+
+    @Override
+    public boolean isPageOpened() {
+        return waitForElement(By.id("Login"));
+    }
+
 
     @Step("Логинимся '{user}' с паролем '{password}'")
     public void login(String user, String password) {
-        driver.findElement(USER_INFO_INPUT).sendKeys(user);
-        driver.findElement(PASSWORD_INFO_INPUT).sendKeys(password);
-        driver.findElement(LOGIN_BUTTON).click();
+        userInput.sendKeys(user);
+        passwordInput.sendKeys(password);
+        loginButton.click();
     }
 
+    @Step("Getting error message")
+    public String getErrorMessage() {
+        return driver.findElement(ERROR_MESSAGE).getText();
+    }
 }
+

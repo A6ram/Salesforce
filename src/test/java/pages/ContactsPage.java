@@ -3,11 +3,10 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class ContactsPage extends BasePage {
-    public static final By PAGE_TITLE = By.xpath("//div[contains(@class, 'slds-breadcrumb__item')]//span[text()='Contacts']");
-    public static final By NEW_CONTACT_BUTTON = By.cssSelector("a[title=New]");
+
     public static final By PAGE_TITLE2 = By.xpath("//div[contains(@class, 'entityNameTitle')]");
     public static final By CONTACT_NAME = By.xpath("//div[contains(@class, 'entityNameTitle')]/..//span[contains(@class, 'custom-truncate')]");
 
@@ -15,15 +14,13 @@ public class ContactsPage extends BasePage {
         super(driver);
     }
 
-    @Step("Открытие вкладки 'Contacts'")
-    public void openContactsPage() {
-        driver.get("https://tms-d.lightning.force.com/lightning/o/Contact/list?filterName=Recent");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(PAGE_TITLE));
+    @Override
+    public void openPage() {
     }
 
-    @Step("Создание нового контакта")
-    public void createNewContact() {
-        driver.findElement(NEW_CONTACT_BUTTON).click();
+    @Override
+    public boolean isPageOpened() {
+        return waitForElement(PAGE_TITLE2);
     }
 
     @Step("Получение заголовка")

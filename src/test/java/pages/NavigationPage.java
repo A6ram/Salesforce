@@ -11,6 +11,14 @@ public class NavigationPage extends BasePage {
         super(driver);
     }
 
+    @Override
+    public void openPage() {
+    }
+
+    @Override
+    public boolean isPageOpened() {
+        return waitForElement(TITLE);
+    }
     @Step("Обнаружение заголовка")
     public static String getPageTitle() {
         return driver.findElement(TITLE).getText();
