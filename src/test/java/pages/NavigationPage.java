@@ -5,7 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class NavigationPage extends BasePage {
-    public static final By TITLE = By.xpath("//div[contains(@class, 'slds-context-bar')]//span[text()='Sales']");
+
+    public static final By PAGE_TITLE = By.xpath("//div[contains(@class, 'slds-context-bar')]//span[text()='Sales']");
 
     public NavigationPage(WebDriver driver) {
         super(driver);
@@ -17,10 +18,11 @@ public class NavigationPage extends BasePage {
 
     @Override
     public boolean isPageOpened() {
-        return waitForElement(TITLE);
+        return waitForElement(PAGE_TITLE);
     }
-    @Step("Обнаружение заголовка")
-    public static String getPageTitle() {
-        return driver.findElement(TITLE).getText();
+
+    @Step("Getting page title")
+    public String getPageTitle() {
+        return driver.findElement(PAGE_TITLE).getText();
     }
 }

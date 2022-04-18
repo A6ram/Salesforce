@@ -2,17 +2,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Regression Suite" parallel="tests" thread-count="4">
     <listeners>
-        <listener class-name="tests.AnnotationTransformer"/>
-        <listener class-name="tests.TestListener"/>
+        <listener class-name="tests.base.AnnotationTransformer"/>
+        <listener class-name="tests.base.TestListener"/>
     </listeners>
-    <test name="Contact">
-        <classes>
-            <class name="tests.ContactTest"/>
-        </classes>
-    </test>
-    <test name="Login">
+    <test name="Chrome">
+        <parameter name="browser" value="chrome"></parameter>
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.AccountTest"/>
+            <class name="tests.ContactTest"/>
         </classes>
     </test>
 
